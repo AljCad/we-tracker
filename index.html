@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracker - QC & Packing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 Order Tracking System</h1>
+            <p class="subtitle">Track orders from QC to Packing</p>
+        </header>
+
+        <main>
+            <!-- Active Orders Section -->
+            <section class="active-orders-section">
+                <h2>Active Orders</h2>
+                <div id="activeOrdersContainer" class="orders-grid">
+                    <p class="empty-state">No active orders. Start by scanning an order number.</p>
+                </div>
+            </section>
+
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="scanInput">Scan Barcode/QR Code:</label>
+                    <input 
+                        type="text" 
+                        id="scanInput" 
+                        placeholder="Scan order number, QC name, or packer name..."
+                        autofocus
+                    >
+                    <button id="clearBtn" class="btn-secondary">Clear Input</button>
+                </div>
+
+                <!-- Manual Entry (Optional) -->
+                <details class="manual-entry">
+                    <summary>Manual Entry (Optional)</summary>
+                    <div class="manual-form">
+                        <input 
+                            type="text" 
+                            id="manualOrderNum" 
+                            placeholder="Order Number"
+                            class="input-field"
+                        >
+                        <input 
+                            type="text" 
+                            id="manualQCName" 
+                            placeholder="QC Name"
+                            class="input-field"
+                        >
+                        <input 
+                            type="text" 
+                            id="manualPackerName" 
+                            placeholder="Packer Name"
+                            class="input-field"
+                        >
+                        <button id="manualSubmitBtn" class="btn-primary">Submit Manual Entry</button>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <h3>Total Orders Processed</h3>
+                    <p id="totalOrders" class="stat-number">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Processing Time</h3>
+                    <p id="avgTime" class="stat-number">--</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Orders Today</h3>
+                    <p id="ordersToday" class="stat-number">0</p>
+                </div>
+            </section>
+
+            <!-- Completed Orders Section -->
+            <section class="completed-orders-section">
+                <h2>Completed Orders</h2>
+                <div class="filter-controls">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by order number..."
+                        class="input-field"
+                    >
+                    <button id="refreshBtn" class="btn-secondary">Refresh Data</button>
+                </div>
+                <div id="completedOrdersContainer" class="orders-table-wrapper">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>QC Name</th>
+                                <th>Packer Name</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Total Hours</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="completedOrdersBody">
+                            <tr><td colspan="7" class="empty-state">Loading data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Settings</h2>
+            <div class="setting-item">
+                <label for="sheetIdInput">Google Sheet ID:</label>
+                <input type="text" id="sheetIdInput" placeholder="Paste your Google Sheet ID">
+            </div>
+            <div class="setting-item">
+                <label for="scriptUrlInput">Apps Script Web App URL:</label>
+                <input type="text" id="scriptUrlInput" placeholder="Paste your Apps Script deployment URL">
+            </div>
+            <button id="saveSettingsBtn" class="btn-primary">Save Settings</button>
+        </div>
+    </div>
+
+    <button id="settingsBtn" class="settings-btn">⚙️</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
